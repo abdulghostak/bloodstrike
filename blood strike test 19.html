@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloodstrike Clan Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',sans-serif;background:#1a1a1a;color:#fff;min-height:100vh;display:flex;justify-content:center}
+.container{width:90%;max-width:1000px;padding:20px}
+.notice{background:#2a2a2a;padding:10px;border-radius:10px;text-align:center;font-size:13px;margin-bottom:15px;color:#ffcc00;}
+.nav-buttons{display:flex;gap:15px;justify-content:center;margin-bottom:30px;flex-wrap:wrap}
+.nav-buttons button{padding:12px 25px;font-size:16px;font-weight:700;border:none;border-radius:10px;background:linear-gradient(135deg,#ff4b6e,#d62828);color:#fff;cursor:pointer}
+section{display:none}
+section.active{display:block}
+h1,h2{text-align:center;margin-bottom:20px}
+h1{font-family:'Dancing Script',cursive;font-size:42px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.card{background:#2a2a2a;padding:20px;border-radius:15px}
+.card h3{margin-bottom:8px;font-size:20px}
+.card p{margin-bottom:10px}
+.clan-img{width:70px;height:70px;border-radius:50%;object-fit:cover;margin-bottom:10px}
+.badge{display:inline-block;background:#25D366;color:#fff;font-size:11px;padding:4px 8px;border-radius:6px;margin-bottom:8px;font-weight:700}
+.whatsapp-btn{display:block;text-align:center;background:#25D366;padding:12px;border-radius:10px;font-weight:700;color:#fff;text-decoration:none}
+.card button{display:block;width:100%;background:#25D366;color:#fff;padding:8px;margin-top:5px;border:none;border-radius:8px;font-weight:700;cursor:pointer}
+footer{text-align:center;margin-top:40px;color:#aaa}
+.media-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;margin-bottom:20px}
+video,img{width:100%;border-radius:12px}
+.small-btn{background:#25D366;color:#fff;padding:8px 12px;font-size:13px;border-radius:8px;font-weight:700;display:inline-block;margin-bottom:15px;text-decoration:none}
+.info-box{background:#2a2a2a;padding:20px;border-radius:15px;margin-bottom:20px}
+.status-completed{color:#25D366;font-weight:700}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div class="notice">⚠️ Only payments made through the official admin WhatsApp are valid.</div>
+
+<div class="nav-buttons">
+<button onclick="showSection('home')">Home</button>
+<button onclick="showSection('clans')">Clans</button>
+<button onclick="showSection('tournaments')">Tournaments</button>
+<button onclick="showSection('announcements')">Info</button>
+<button onclick="showSection('contact')">Contact</button>
+</div>
+
+<section id="home" class="active">
+    <h1>Welcome to Bloodstrike Clan Hub</h1>
+    <p style="text-align:center;margin-bottom:20px">Create clans, join tournaments, and compete for gold.</p>
+    <div id="homeImages" class="media-grid"></div>
+    <div id="homeVideos" class="media-grid"></div>
+</section>
+
+<section id="clans">
+    <a class="small-btn" href="https://wa.me/2349161174405?text=Hi%20Admin,%20I%20want%20to%20create%20a%20clan." target="_blank">Message admin to create clan</a>
+    <h2>Clans</h2>
+    <div class="card-grid" id="clanList"></div>
+</section>
+
+<section id="tournaments">
+    <a class="small-btn" href="https://wa.me/2349161174405?text=Hi%20Admin,%20I%20want%20to%20host%20a%20tournament." target="_blank">Message admin to host tournament</a>
+    <h2>Upcoming & Past Tournaments</h2>
+    <div class="card-grid" id="tournamentList"></div>
+</section>
+
+<section id="announcements">
+    <h2>Announcements & Info</h2>
+    <div id="infoSection"></div>
+</section>
+
+<section id="contact">
+    <h2>Contact Admin</h2>
+    <a href="https://wa.me/2349161174405" class="whatsapp-btn" target="_blank">Chat on WhatsApp</a>
+</section>
+
+<footer>© 2026 Bloodstrike Hub | Developed by Ghost AK</footer>
+</div>
+
+<script>
+// ==========================================
+// 1. EDIT DATA HERE (FAST UPDATE SECTION)
+// ==========================================
+
+const homeData = {
+    images: ["Pic 1.png", "Pic 2.png", "Pic 3.png"],
+    videos: ["blood strike video 1.mp4", "blood strike video 2.mp4"]
+};
+
+const clans = [
+    {
+        name: "Ghost Killers", 
+        members: 4, 
+        img: "pic 6.png", 
+        membersList: ["KAKASH", "~lumes", "GhostAk", "killshot"]
+    }
+];
+
+const tournaments = [
+    {name: "Weekly Clash", date: "Upcoming", status: "Upcoming", players: "Loading / 50", map: "TBD", prizes: "---"},
+    {name: "Night Battle", date: "Upcoming", status: "Upcoming", players: "Loading / 50", map: "TBD", prizes: "---"},
+    {name: "Ghost AK", date: "Sunday, February 8th, 2026", status: "Completed", players: "50 / 50", map: "Shutter Island", prizes: "1st: 2,000g | 2nd: 1,000g | 3rd: 500g | 4th: 300g"}
+];
+
+const announcements = [
+    {
+        title: "🏆 Tournament Announcement",
+        content: "Shout out to <strong>Drwickedness</strong> for winning the last tournament hosted by <strong>Ghost AK</strong> and earning <strong>2,000 Gold</strong>."
+    },
+    {
+        title: "⏳ Next Tournament Countdown",
+        content: "Next tournament: <strong>Upcoming</strong>"
+    },
+    {
+        title: "📘 How It Works",
+        content: "• Join tournaments by contacting admin<br>• Entry fee: ₦3,000 per player<br>• Winners receive Bloodstrike Gold<br>• Host tournaments by messaging admin"
+    },
+    {
+        title: "📜 Rules & Terms",
+        content: "• Entry fees are non-refundable<br>• Cheating leads to disqualification<br>• Admin decisions are final<br>• Prizes paid after match confirmation"
+    }
+];
+
+// ==========================================
+// 2. AUTOMATIC LOGIC (DO NOT TOUCH)
+// ==========================================
+
+function showSection(id){
+    document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+
+function renderAll() {
+    // Render Home Media
+    document.getElementById('homeImages').innerHTML = homeData.images.map(src => `<img src="${src}">`).join('');
+    document.getElementById('homeVideos').innerHTML = homeData.videos.map(src => `<video controls src="${src}"></video>`).join('');
+
+    // Render Clans
+    const clanList = document.getElementById("clanList");
+    clanList.innerHTML = clans.map((c, i) => `
+        <div class="card">
+            <img src="${c.img}" class="clan-img">
+            <div class="badge">✅ Verified</div>
+            <h3>${c.name}</h3>
+            <p>Members: ${c.members}</p>
+            <a class="whatsapp-btn" href="https://wa.me/2349161174405" target="_blank">Join Clan</a>
+            <button onclick="spectateClan(${i})">Spectate Clan</button>
+            <div id="spectate-${i}" style="display:none;margin-top:10px;background:#333;padding:10px;border-radius:10px;"></div>
+        </div>`).join('');
+
+    // Render Tournaments
+    const tList = document.getElementById("tournamentList");
+    tList.innerHTML = tournaments.map(t => {
+        let statusHTML = t.status === "Completed" ? `<span class="status-completed">${t.status}</span>` : t.status;
+        return `
+        <div class="card">
+            <h3>${t.name}</h3>
+            <p><strong>Date:</strong> ${t.date}</p>
+            <p><strong>Status:</strong> ${statusHTML}</p>
+            <p><strong>Players:</strong> ${t.players}</p>
+            <p><strong>Map:</strong> ${t.map}</p>
+            <p><strong>Prizes:</strong> ${t.prizes}</p>
+        </div>`;
+    }).join('');
+
+    // Render Info/Announcements
+    const infoBox = document.getElementById("infoSection");
+    infoBox.innerHTML = announcements.map(a => `
+        <div class="info-box">
+            <strong>${a.title}</strong><br><br>
+            ${a.content}
+        </div>`).join('');
+}
+
+function spectateClan(i){
+    const div = document.getElementById("spectate-"+i);
+    if(div.style.display === "none"){
+        div.style.display = "block";
+        div.innerHTML = "<strong>Clan Members:</strong><br>" + clans[i].membersList.join("<br>");
+    } else {
+        div.style.display = "none";
+    }
+}
+
+// Start site
+renderAll();
+</script>
+</body>
+</html>
