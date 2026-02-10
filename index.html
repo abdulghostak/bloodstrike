@@ -119,6 +119,27 @@ const announcements = [
     {
         title: "📜 Rules & Terms",
         content: "• Entry fees are non-refundable<br>• Cheating leads to disqualification<br>• Admin decisions are final<br>• Prizes paid after match confirmation"
+    },
+    {
+        title: "🔥 Upcoming Tournament News",
+        content: `
+        <strong>Entry Fee:</strong> ₦2,500 per player<br><br>
+
+        <strong>🥇 TEAM 1 PRIZES</strong><br>
+        • 1st Position: <strong>3,000 Gold</strong><br>
+        • 2nd Position: <strong>2,000 Gold</strong><br>
+        • 3rd Position: <strong>1,000 Gold</strong><br>
+        • 4th Position: <strong>500 Gold</strong><br><br>
+
+        <strong>🥈 TEAM 2 PRIZES</strong><br>
+        • 1st Position: <strong>1,000 Gold</strong><br>
+        • 2nd Position: <strong>500 Gold</strong><br>
+        • 3rd Position: <strong>300 Gold</strong><br>
+        • 4th Position: <strong>100 Gold</strong><br><br>
+
+        📢 Limited slots available.<br>
+        👉 Message Admin on WhatsApp to join.
+        `
     }
 ];
 
@@ -132,11 +153,9 @@ function showSection(id){
 }
 
 function renderAll() {
-    // Render Home Media
     document.getElementById('homeImages').innerHTML = homeData.images.map(src => `<img src="${src}">`).join('');
     document.getElementById('homeVideos').innerHTML = homeData.videos.map(src => `<video controls src="${src}"></video>`).join('');
 
-    // Render Clans
     const clanList = document.getElementById("clanList");
     clanList.innerHTML = clans.map((c, i) => `
         <div class="card">
@@ -149,7 +168,6 @@ function renderAll() {
             <div id="spectate-${i}" style="display:none;margin-top:10px;background:#333;padding:10px;border-radius:10px;"></div>
         </div>`).join('');
 
-    // Render Tournaments
     const tList = document.getElementById("tournamentList");
     tList.innerHTML = tournaments.map(t => {
         let statusHTML = t.status === "Completed" ? `<span class="status-completed">${t.status}</span>` : t.status;
@@ -164,7 +182,6 @@ function renderAll() {
         </div>`;
     }).join('');
 
-    // Render Info/Announcements
     const infoBox = document.getElementById("infoSection");
     infoBox.innerHTML = announcements.map(a => `
         <div class="info-box">
@@ -183,7 +200,6 @@ function spectateClan(i){
     }
 }
 
-// Start site
 renderAll();
 </script>
 </body>
